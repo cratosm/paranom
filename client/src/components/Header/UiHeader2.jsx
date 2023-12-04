@@ -1,7 +1,7 @@
 import logo from '../../assets/Logo/logoParanomFleur.png';
 import {useState} from "react";
 // https://tailwindcomponents.com/component/free-tailwind-css-header-component
-export const UiHeader2 = ({test = ["Jeu", "Collection"]}) => {
+export const UiHeader2 = ({test = ["Game", "Collection"]}) => {
 
     const [selected, setSelected] = useState(test[0]);
 
