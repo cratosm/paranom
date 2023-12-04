@@ -3,7 +3,7 @@ import {SubHeaderTest} from "./components/SubHeader/SubHeaderTest";
 
 export default function App() {
     return (
-        <div className="bg-neutral-900 min-h-screen">
+        <div className="bg-gradient-to-r from-green-300 to-purple-400 min-h-screen">
             <UiHeader/>
             <div className={"pt-8"}>
                 <SubHeaderTest/>
