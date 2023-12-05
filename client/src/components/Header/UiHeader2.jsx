@@ -12,6 +12,13 @@ export const UiHeader2 = ({test = ["Game", "Collection"]}) => {
             return "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-gray-600 border border-white bg-gray-50 cursor-pointer px-20 py-2.5 font-semibold text-xs leading-3 shadow-md rounded";
     }
 
+    function getStyle2(test) {
+        if (selected === test)
+            return "mr-5 text-gray-800 text-blue-500 font-semibold hover:text-blue-500 cursor-pointer";
+        else
+            return "mr-5 text-gray-800 font-semibold hover:text-blue-500 cursor-pointer";
+    }
+
     function selectNew() {
         let newL = document.getElementById("list");
         newL.classList.toggle("hidden");
@@ -39,10 +46,10 @@ export const UiHeader2 = ({test = ["Game", "Collection"]}) => {
                     </div>
 
                     <div className="content-center">
-                        <ul className="hidden md:flex flex-auto space-x-2">
+                        <ul className="hidden md:flex flex-auto space-x-2 pt-2">
                             {test.map((item, id) =>
                                 <li onClick={() => setSelected(item)}
-                                    className={getStyle(item)}
+                                    className={getStyle2(item)}
                                     key={id}
                                 >
                                     {item}
@@ -102,6 +109,7 @@ export const UiHeader2 = ({test = ["Game", "Collection"]}) => {
                     </div>
                 </div>
             </div>
+            <hr />
         </div>
     )
 }
