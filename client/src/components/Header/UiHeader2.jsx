@@ -14,7 +14,7 @@ export const UiHeader2 = ({test = ["Game", "Collection"]}) => {
 
     function getStyle2(test) {
         if (selected === test)
-            return "mr-5 text-gray-800 text-blue-500 font-semibold hover:text-blue-500 cursor-pointer";
+            return "mr-5 text-blue-500 font-semibold hover:text-blue-500 cursor-pointer";
         else
             return "mr-5 text-gray-800 font-semibold hover:text-blue-500 cursor-pointer";
     }
