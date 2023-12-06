@@ -1,6 +1,7 @@
 import {SubHeaderTest} from "./components/SubHeader/SubHeaderTest";
 import {UiHeader2} from "./components/Header/UiHeader2.jsx";
 import {Carousel} from "./components/Carousel/Carousel";
+import {UiStepper} from "./components/Stepper/UiStepper.jsx";
 
 export default function App() {
     return (
@@ -9,6 +10,7 @@ export default function App() {
             <div className={"pt-8"}>
                 <SubHeaderTest/>
             </div>
+            <UiStepper />
             <Carousel />
 
 

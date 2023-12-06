@@ -1,6 +1,6 @@
 export const UiInput = () => {
     return (
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center md:justify-start">
                 <input
                     className="h-12 min-w-[12rem] rounded-lg border-blue-300 indent-4 text-blue-900 shadow-lg focus:outline-none focus:ring focus:ring-blue-600"
                     type="text" placeholder="Designation"/>
