@@ -14,7 +14,6 @@ export const SubHeaderTest = () => {
         <div className="overflow-hidden">
             <div className="md:flex">
                 <div className="md:w-1/2 flex items-center justify-center md:items-start md:justify-start">
-                    <img src={eth} alt="eth" className="absolute rounded-full mb-56 md:left-1/4 w-12 md:w-20" />
                     <div className="md:pt-24">
                         <h1 className="text-dark font-bold text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl leading-snug mb-3">
                             Welcolme to Paranom <br/>
@@ -29,14 +28,9 @@ export const SubHeaderTest = () => {
                             <UiInput />
                         </div>
 
-                        <img src={circleBlueGold} alt="circleBlueGold" width={30} className="absolute top-1/4 -ml-16" />
-                        <img src={cerclePurple} alt="cerclePurple" width={30} className="absolute bottom-1/4 md:top-2/4" />
-                        <img src={cross} alt="cross" width={40} className="absolute bottom-1/4 md:top-3/4 left-1/4" />
-                        <img src={cercleGold} alt="cercleGold" width={40} className="absolute bottom-1/4 md:top-1/4 left-2/4" />
                     </div>
                 </div>
                 <div className="md:w-1/2 flex items-center justify-center pt-10 md:pt-0">
-                    <img src={btc} width={50} alt="btc"  className="absolute rounded-full mr-96 mt-72" />
                     <img src={ParanomBoomerang} alt="ParanomBoomerang" className="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-5/12" />
                 </div>
             </div>

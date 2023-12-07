@@ -15,9 +15,9 @@ export const UiHeader2 = ({test = ["Game", "Collection"]}) => {
 
     function getStyle2(test) {
         if (selected === test)
-            return "mr-5 text-blue-500 font-semibold hover:text-blue-500 cursor-pointer";
+            return "z-40 mr-5 text-blue-500 font-semibold hover:text-blue-500 cursor-pointer";
         else
-            return "mr-5 text-gray-800 font-semibold hover:text-blue-500 cursor-pointer";
+            return "z-40 mr-5 text-gray-800 font-semibold hover:text-blue-500 cursor-pointer";
     }
 
     function selectNew() {
@@ -47,13 +47,13 @@ export const UiHeader2 = ({test = ["Game", "Collection"]}) => {
                     </div>
 
                     <div>
-                        <div className="visible md:hidden flex z-0 cursor-pointer" onClick={() => selectNew()}>
+                        <div className="visible md:hidden flex z-40 cursor-pointer" onClick={() => selectNew()}>
                             <p className={getStyle2(selected)}
                                id="textClicked"
                             >
                                     {selected}
                             </p>
-                            <svg id="ArrowSVG" className="transform z-10" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            <svg id="ArrowSVG" className="transform z-50" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="1.5" strokeLinecap="round"
                                       strokeLinejoin="round"/>
