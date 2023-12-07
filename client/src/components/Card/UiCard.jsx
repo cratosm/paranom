@@ -1,13 +1,19 @@
-export const UiCard = ({title}) => {
+
+export const UiCard = ({title, description, image}) => {
     return (
             <div
-                className="group max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl">
-                <p className="m-5 text-neutral-500">Step-01</p>
-                <div className="p-5">
+                className="group max-w-fit 2xl:max-w-xl 2xl:h-6/6 rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl">
+                {image && <div className="flex flex-col items-end">
+                    <img src={image} width={60} alt="wallet" className="absolute rounded-full -mr-3 -mt-6 "
+                     />
+                </div>}
+
+                <p className="group-hover:font-semibold m-5 text-neutral-500">{description}</p>
+                <div className="m-5">
                     <h2 className="text-2xl font-semibold text-neutral-900 sm:text-3xl md:text-lg mb-2">
                         {title}
                     </h2>
-                    <p className="group-hover:text-yellow-700 text-medium mb-5 text-gray-700">Well, aren't you going up to the lake tonight, you've
+                    <p className="group-hover:text-blue-400 text-medium mb-5 text-gray-700">Well, aren't you going up to the lake tonight, you've
                         been planning it for two weeks.</p>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                         <path fillRule="evenodd"
