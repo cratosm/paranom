@@ -1,16 +1,16 @@
 import {UiCardSlider} from "../../components/CardSlider/UiCardSlider.jsx";
 import {EaseOutWhenVisibleLeft} from "../../components/Motion/EaseOutWhenVisibleLeft.jsx";
 import {EaseOutWhenVisibleDown} from "../../components/Motion/EaseOutWhenVisibleDown.jsx";
-import {UiSubHeader} from "../../components/SubHeader/UiSubHeader.jsx";
 import ParanomBoomrang from "../../assets/Image/Amber H.png";
 import {UiTitle} from "../../components/Title/UiTitle.jsx";
+import {UiSubHeader2} from "../../components/SubHeader/UiSubHeader2";
 
 export const CollectionPage = () => {
     return (
         <div>
             <div className="mt-8">
                 <EaseOutWhenVisibleDown>
-                    <UiSubHeader title="Welcolme to Paranom"
+                    <UiSubHeader2 title="Welcolme to Paranom"
                                  titleSecond="an art of Anonymity"
                                  subTitle="Immerse yourself in a series of"
                                  subTitleSecond="mysterious unique portraits"
