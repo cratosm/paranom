@@ -8,10 +8,6 @@ import fireworks from "../../assets/Image/fireworks.png";
 export const UiStepper = () => {
     return (
         <div>
-            <div className="pb-5">
-                <UiTitle />
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <UiCard title="Set up your wallet" description="STEP-01" image={wallet}/>
                 <UiCard title="Chose a Paranom" description="STEP-02" image={paranom} className="col-span-full"/>
