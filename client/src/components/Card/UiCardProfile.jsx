@@ -4,12 +4,12 @@ import logo from "../../assets/Logo/fleur.png"
 export const UiCardProfile = () => {
     return (
         <div className="relative flex w-72 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+            <img src={logo} alt="profile-picture" className="absolute w-20 z-20"/>
             <div
                 className="relative mx-4 mt-4 h-64 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
                 <img src={Lelouch} alt="profile-picture"/>
             </div>
             <div className="p-6 text-center">
-                <img src={logo} alt="profile-picture" className="absolute w-20 left-2/3"/>
                 <h4 className="mb-2 block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                     MParanom
                 </h4>
