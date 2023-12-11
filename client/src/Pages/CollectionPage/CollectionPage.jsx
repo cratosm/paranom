@@ -1,26 +1,42 @@
 import {UiCardSlider} from "../../components/CardSlider/UiCardSlider.jsx";
 import {EaseOutWhenVisibleLeft} from "../../components/Motion/EaseOutWhenVisibleLeft.jsx";
 import {EaseOutWhenVisibleDown} from "../../components/Motion/EaseOutWhenVisibleDown.jsx";
-import ParanomBoomrang from "../../assets/Image/Amber H.png";
 import {UiTitle} from "../../components/Title/UiTitle.jsx";
-import {UiSubHeader2} from "../../components/SubHeader/UiSubHeader2";
+import {UiCardProfile} from "../../components/Card/UiCardProfile.jsx";
+import matthias from "../../assets/Collection/PP/Matthias.png";
+import thomas from "../../assets/Collection/PP/Thomas.png";
+import henri from "../../assets/Collection/PP/Henri.png";
+import {UiSubHeader} from "../../components/SubHeader/UiSubHeader.jsx";
 
 export const CollectionPage = () => {
+    const profilesComponent = (
+        <div className="flex">
+            <div className="rotate-[-10deg]">
+                <UiCardProfile image={matthias} title="MParanom" description="Co-Founder" />
+            </div>
+            <div className="hidden sm:block z-20">
+                <UiCardProfile image={thomas} title="TParanom" description="Co-Founder" />
+            </div>
+            <div className="rotate-[10deg]">
+                <UiCardProfile image={henri} title="HParanom" description="Co-Founder" />
+            </div>
+        </div>
+    );
+
     return (
         <div>
             <div className="mt-8">
                 <EaseOutWhenVisibleDown>
-                    <UiSubHeader2 title="Welcolme to Paranom"
+                    <UiSubHeader title="Welcolme to Paranom"
                                  titleSecond="an art of Anonymity"
                                  subTitle="Immerse yourself in a series of"
                                  subTitleSecond="mysterious unique portraits"
-                                 imgClassName="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-8/12"
-                                 image={ParanomBoomrang}
+                                 component={profilesComponent}
                     />
                 </EaseOutWhenVisibleDown>
             </div>
 
-            <div className="mt-10 pb-5">
+            <div className="mt-16 md:mt-40 pb-5">
                 <EaseOutWhenVisibleLeft>
                     <UiTitle title="Top collection" />
                     <UiCardSlider />

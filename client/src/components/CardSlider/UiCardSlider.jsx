@@ -1,7 +1,12 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import paranom from "../../assets/Image/Lelouch F.png"
+import paraDaft from "../../assets/Collection/Daft Punk Jaune H.png"
+import paraFreddy from "../../assets/Collection/Freddy Mercury F.png"
+import paraLelouch from "../../assets/Collection/Lelouch F.png"
+import paraKill from "../../assets/Collection/Kill Bill H.png"
+import paraSpiderman from "../../assets/Collection/Spiderman B H.png"
+import paraAmber from "../../assets/Collection/Amber H.png"
 import "./slider.css";
 import {UiCardImage} from "../Card/UiCardImage";
 // breakpoint size
@@ -16,7 +21,7 @@ export const UiCardSlider = () => {
         dots: true,
         infinite: true,
         speed: 2000,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 2000,
@@ -43,8 +48,8 @@ export const UiCardSlider = () => {
     };
     return (
         <Slider {...settings} >
-            {data.map((d, id) => (
-                <UiCardImage />
+            {data.map((item, id) => (
+                <UiCardImage key={id} title={item.name} description={item.description} image={item.img} />
             ))}
         </Slider>
     );
@@ -52,29 +57,34 @@ export const UiCardSlider = () => {
 
 const data = [
     {
-        name: `John Morgan`,
-        img: paranom,
-        review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`
+        name: `Daft`,
+        img: paraDaft,
+        description: `Lorem ipsum dolor sit amet`
     },
     {
-        name: `Ellie Anderson`,
-        img: paranom,
-        review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`
+        name: `Lelouch`,
+        img: paraLelouch,
+        description: `Lorem ipsum dolor sit amet`
     },
     {
-        name: `Nia Adebayo`,
-        img: paranom,
-        review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`
+        name: `Freddy`,
+        img: paraFreddy,
+        description: `Lorem ipsum dolor sit amet`
     },
     {
-        name: `Rigo Louie`,
-        img: paranom,
-        review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`
+        name: `Kill Bill`,
+        img: paraKill,
+        description: `Lorem ipsum dolor sit amet`
     },
     {
-        name: `Mia Williams`,
-        img: paranom,
-        review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`
+        name: `Spiderman`,
+        img: paraSpiderman,
+        description: `Lorem ipsum dolor sit amet`
+    },
+    {
+        name: `Amber H`,
+        img: paraAmber,
+        description: `Lorem ipsum dolor sit amet`
     },
 
 ];

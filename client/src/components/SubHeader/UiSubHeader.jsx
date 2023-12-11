@@ -1,13 +1,13 @@
 import {UiInput} from "../Input/UiInput";
 
 
-export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input, image, imgClassName}) => {
+export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input, component}) => {
     return (
-        <div className="overflow-hidden">
+        <div>
             <div className="md:flex">
                 <div className="md:w-1/2 flex items-center justify-center md:items-start md:justify-start">
                     <div className="md:pt-24">
-                        <h1 className="text-dark font-bold text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl leading-snug mb-3">
+                        <h1 className="text-dark font-bold text-3xl md:text-3xl lg:text-4xl xl:text-5xl leading-snug mb-3">
                             {titleSecond ? (
                                 <span>
                                     {title}
@@ -18,7 +18,7 @@ export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input
                                 title
                             )}
                         </h1>
-                        <p className="tracking-wide text-xl text-white font-semibold md:text-[18px] lg:text-[22px] xl:text-[28px] 2xl:text-[30px] leading-snug mb-3">
+                        <p className="tracking-wide text-xl text-white font-semibold md:text-[18px] lg:text-[22px] xl:text-[28px]  leading-snug mb-3">
                             {subTitle ? (
                                 <span>
                                     {subTitle}
@@ -36,8 +36,8 @@ export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input
                         }
                     </div>
                 </div>
-                <div className="md:w-1/2 flex items-center justify-center pt-10 md:pt-0">
-                    <img src={image} alt="ParanomBoomerang" className={imgClassName} />
+                <div className="md:w-1/2 flex items-center justify-center pt-10 md:pt-0 overflow-visible">
+                    {component}
                 </div>
             </div>
         </div>

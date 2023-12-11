@@ -42,7 +42,7 @@ export const UiSubHeader2 = ({title, titleSecond, subTitle, subTitleSecond, inpu
                     <div className="rotate-[-10deg] ">
                         <UiCardProfile image={Amber} title="MParanom"/>
                     </div>
-                    <div className="z-20">
+                    <div className="hidden sm:block z-20">
                         <UiCardProfile image={Lelouch} title="TParanom"/>
                     </div>
                     <div className="rotate-[10deg] ">

@@ -6,6 +6,9 @@ import ParanomBoomrang from "../../assets/Gif/ParanomBoomrang.gif"
 import {UiTitle} from "../../components/Title/UiTitle.jsx";
 
 export const GamePage = () => {
+    const gifComponent = <img src={ParanomBoomrang} alt="ParanomBoomerang"
+                              className="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-5/12" />;
+
     return (
         <div>
             <div className="mt-8">
@@ -14,8 +17,7 @@ export const GamePage = () => {
                                  titleSecond="a web3 NFT card Game"
                                  subTitle="Connect your wallet to start playing"
                                  subTitleSecond="the ultimate Web3 Battle Card Game"
-                                 image={ParanomBoomrang}
-                                 imgClassName="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-5/12"
+                                 component={gifComponent}
                                  input
                     />
                 </EaseOutWhenVisibleDown>
