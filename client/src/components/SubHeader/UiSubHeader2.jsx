@@ -1,11 +1,11 @@
 import {UiInput} from "../Input/UiInput";
-import MParanom from "../../assets/Image/MParanom.png"
-import Amber from "../../assets/Image/Amber H.png"
 import {UiCardProfile} from "../Card/UiCardProfile";
-
+import Piccolo from "../../assets/Image/Piccolo H.png"
+import Lelouch from "../../assets/Image/Lelouch F.png"
+import Amber from "../../assets/Image/Amber H.png"
 export const UiSubHeader2 = ({title, titleSecond, subTitle, subTitleSecond, input, image, imgClassName}) => {
     return (
-        <div className="overflow-hidden">
+        <div>
             <div className="md:flex">
                 <div className="md:w-1/2 flex items-center justify-center md:items-start md:justify-start">
                     <div className="md:pt-24">
@@ -38,8 +38,16 @@ export const UiSubHeader2 = ({title, titleSecond, subTitle, subTitleSecond, inpu
                         }
                     </div>
                 </div>
-                <div className="bg-black md:w-1/2 flex items-center justify-center pt-10 md:pt-0">
-                    <UiCardProfile />
+                <div className=" md:w-1/2 flex items-center justify-center pt-10 md:pt-0 overflow-visible">
+                    <div className="rotate-[-10deg] ">
+                        <UiCardProfile image={Amber} title="MParanom"/>
+                    </div>
+                    <div className="z-20">
+                        <UiCardProfile image={Lelouch} title="TParanom"/>
+                    </div>
+                    <div className="rotate-[10deg] ">
+                        <UiCardProfile image={Piccolo} title="HParanom"/>
+                    </div>
                 </div>
             </div>
         </div>
