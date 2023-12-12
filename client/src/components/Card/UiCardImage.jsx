@@ -4,7 +4,7 @@ import logoTitle from "../../assets/Logo/LogoSeparatedTwoWhite.png"
 export const UiCardImage = ({image, title, description}) => {
     return (
         <div className="group w-5/5 h-5/5 flex flex-col p-4 bg-white hover:bg-blue-100 rounded-lg">
-            <div className="overflow-hidden">
+            <div className="overflow-hidden flex items-center justify-center">
                 <img src={image} alt="cardImage" className="rounded-lg transform transition duration-500 group-hover:scale-105"/>
             </div>
             <h1 className="font-semibold text-lg text-neutral-500 mt-3">{title}</h1>

@@ -24,7 +24,7 @@ export const UiCardSlider = () => {
         slidesToShow: 5,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 6000,
         pauseOnHover: true,
         swipeToSlide: true,
         responsive: [

@@ -25,7 +25,9 @@ export const GamePage = () => {
 
             <div className="mt-10 pb-5">
                 <EaseOutWhenVisibleLeft>
-                    <UiTitle title="Get one and have fun"/>
+                    <div className="mb-10">
+                        <UiTitle title="Get one and have fun"/>
+                    </div>
                     <UiStepper />
                 </EaseOutWhenVisibleLeft>
             </div>

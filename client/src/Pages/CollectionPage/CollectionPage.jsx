@@ -7,6 +7,7 @@ import matthias from "../../assets/Collection/PP/Matthias.png";
 import thomas from "../../assets/Collection/PP/Thomas.png";
 import henri from "../../assets/Collection/PP/Henri.png";
 import {UiSubHeader} from "../../components/SubHeader/UiSubHeader.jsx";
+import {UiGallery} from "../../components/Gallery/UiGallery";
 
 export const CollectionPage = () => {
     const profilesComponent = (
@@ -44,8 +45,9 @@ export const CollectionPage = () => {
             </div>
 
             <div className="pb-5 mt-20">
-                    <EaseOutWhenVisibleLeft>
+                <EaseOutWhenVisibleLeft>
                     <UiTitle title="Explore collection" />
+                    <UiGallery />
                 </EaseOutWhenVisibleLeft>
             </div>
 
