@@ -49,11 +49,11 @@ export const UiHeader = ({items = ["Game", "Collection"]}) => {
                     </div>
 
                     <div>
-                        <div className="visible md:hidden flex z-40 cursor-pointer" onClick={() => selectNew()}>
-                            <p className={getStyle(selected)}
+                        <div className="visible md:hidden flex z-40 cursor-pointer mt-2" onClick={() => selectNew()}>
+                            <p className="z-40 mr-5 text-blue-500 font-semibold hover:text-blue-500 cursor-pointer"
                                id="textClicked"
                             >
-                                    {selected}
+                                {selected}
                             </p>
                             <svg id="ArrowSVG" className="transform z-50" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
