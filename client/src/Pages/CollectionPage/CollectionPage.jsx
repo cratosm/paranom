@@ -12,13 +12,13 @@ export const CollectionPage = () => {
     const profilesComponent = (
         <div className="flex">
             <div className="rotate-[-10deg]">
-                <UiCardProfile image={matthias} title="MParanom" description="Co-Founder" />
+                <UiCardProfile image={matthias} title="MParanom" description="Digital" />
             </div>
             <div className="hidden sm:block z-20">
-                <UiCardProfile image={thomas} title="TParanom" description="Co-Founder" />
+                <UiCardProfile image={thomas} title="TParanom" description="Art" />
             </div>
             <div className="rotate-[10deg]">
-                <UiCardProfile image={henri} title="HParanom" description="Co-Founder" />
+                <UiCardProfile image={henri} title="HParanom" description="Anonymity" />
             </div>
         </div>
     );
