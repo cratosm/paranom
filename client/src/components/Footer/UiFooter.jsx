@@ -44,7 +44,7 @@ export const UiFooter = () => {
                 <hr className="my-10 border-gray-200 dark:border-gray-700"/>
 
                 <div className="flex flex-col items-center sm:flex-row sm:justify-between">
-                    <p className="text-sm text-gray-500">© Copyright 2021. All Rights Reserved.</p>
+                    <p className="text-sm text-gray-500">© Copyright 2023. All Rights Reserved.</p>
 
                     <div className="flex mt-3 -mx-2 sm:mt-0">
                         <a href="#"
