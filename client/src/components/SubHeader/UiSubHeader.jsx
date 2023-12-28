@@ -1,6 +1,5 @@
 import {UiInput} from "../Input/UiInput";
 
-
 export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input, component}) => {
     const { placeholder, btnTitle, onClick } = input || {};
 

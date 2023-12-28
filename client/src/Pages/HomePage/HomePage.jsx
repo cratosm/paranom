@@ -10,7 +10,10 @@ export const HomePage = () => {
     const itemSelected = useRecoilValue(itemSelectedState);
 
     const connectWallet = () => {
-        console.log("connect");
+        if (window.ethereum)
+            console.log("detected");
+        else
+            console.log("MetaMask not detected");
     }
 
     return (
