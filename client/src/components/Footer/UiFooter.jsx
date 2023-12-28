@@ -1,6 +1,6 @@
 import logo from "../../assets/Logo/logoParanomFleurBlack.png"
 
-export const UiFooter = () => {
+export const UiFooter = ({title}) => {
     return (
         <footer className="pt-10">
             <div className="container px-6 py-8 mx-auto">
@@ -9,7 +9,7 @@ export const UiFooter = () => {
                         <img className="w-auto h-7" src={logo} alt=""/>
                     </a>
 
-                    <p className="max-w-md mx-auto mt-4 text-gray-500 dark:text-gray-400">A NFT Card Game</p>
+                    <p className="max-w-md mx-auto mt-4 text-gray-500 dark:text-gray-400">{title}</p>
 
                     <div className="flex flex-col mt-4 sm:flex-row sm:items-center sm:justify-center">
                         <button

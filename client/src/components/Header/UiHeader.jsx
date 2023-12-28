@@ -4,32 +4,33 @@ import {EaseOutWhenVisibleLeft} from "../Motion/EaseOutWhenVisibleLeft";
 import { useRecoilState } from 'recoil';
 import {itemSelectedState} from "../../Atoms/ItemSelectedState.jsx";
 import {UiButton} from "../Button/UiButton";
+import {UiInput} from "../Input/UiInput.jsx";
 
 
 // https://tailwindcomponents.com/component/free-tailwind-css-header-component
-export const UiHeader = ({items = ["Game", "Collection"]}) => {
-
+export const UiHeader = ({items = ["Game", "Collection"], button}) => {
+    const { title, onClick, color, size } = button || {};
     const [selected, setSelected] = useRecoilState(itemSelectedState);
 
     useEffect(() => {
         setSelected(items[0]);
     }, []);
 
-    function getStyle(test) {
+    const getStyle = (test) => {
         if (selected === test)
             return "z-40 mr-5 text-blue-500 font-semibold hover:text-blue-500 cursor-pointer";
         else
             return "z-40 mr-5 text-gray-800 font-semibold hover:text-blue-500 cursor-pointer";
     }
 
-    function selectNew() {
+    const selectNew = () => {
         let newL = document.getElementById("list");
         newL.classList.toggle("hidden");
 
         document.getElementById("ArrowSVG").classList.toggle("rotate-180");
     }
 
-    function selectedSmall(item) {
+    const selectedSmall = (item) => {
         let text = event.target.innerText;
         let newL = document.getElementById("list");
         let newText = document.getElementById("textClicked");
@@ -72,9 +73,11 @@ export const UiHeader = ({items = ["Game", "Collection"]}) => {
                             )}
                         </ul>
                     </div>
-                    <div className="flex space-x-5 justify-center items-center pl-2">
-                        <UiButton title="Connect" color="neutral"/>
-                    </div>
+                    {button &&
+                        <div className="flex space-x-5 justify-center items-center pl-2">
+                            <UiButton title={title} color={color} size={size} onClick={onClick} />
+                        </div>
+                    }
                 </nav>
 
                 <EaseOutWhenVisibleLeft>
