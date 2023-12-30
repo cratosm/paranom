@@ -49,28 +49,24 @@ const data = [
         title: "Set up your wallet",
         description: "Well, aren't you going up to the lake tonight, you've been planning it for two weeks.",
         tag: "STEP-01",
-        className: "col-span-full",
         img: wallet,
     },
     {
         title: "Chose a Paranom",
         description: "Well, aren't you going up to the lake tonight, you've been planning it for two weeks.",
         tag: "STEP-02",
-        className: "col-span-full",
         img: paranom,
     },
     {
         title: "Join a battle",
         description: "Well, aren't you going up to the lake tonight, you've been planning it for two weeks.",
         tag: "STEP-03",
-        className: "col-span-full",
         img: battle,
     },
     {
         title: "Have fun",
         description: "Well, aren't you going up to the lake tonight, you've been planning it for two weeks.",
         tag: "STEP-04",
-        className: "col-span-full",
         img: fireworks,
     },
 ];

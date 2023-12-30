@@ -7,7 +7,7 @@ export default {
     theme: {
         extend: {
             animation: {
-                blob: "blob 7s infinite",
+                blob: "blob 10s infinite",
             },
             keyframes: {
                 blob: {
@@ -29,7 +29,7 @@ export default {
     },
     safelist: [
         {
-            pattern: /bg-(red|green|blue|neutral)-(100|200|300|500)/,
+            pattern: /bg-(red|orange|green|blue|neutral)-(100|200|300|500)/,
         },
     ],
     plugins: [],
