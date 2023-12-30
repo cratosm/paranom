@@ -6,7 +6,7 @@ import ParanomBoomrang from "../../assets/Gif/ParanomBoomrang.gif"
 import {UiTitle} from "../../components/Title/UiTitle.jsx";
 import wallet from "../../assets/Image/wallet.png";
 import fireworks from "../../assets/Image/fireworks.png";
-import battle from "../../assets/Image/battle.png";
+import discussion from "../../assets/Image/discussion_talk.png";
 import paranom from "../../assets/Image/Lelouch F.png";
 
 export const GamePage = () => {
@@ -22,9 +22,9 @@ export const GamePage = () => {
             <div className="mt-8">
                 <EaseOutWhenVisibleDown>
                     <UiSubHeader title="Welcolme to Paranom"
-                                 titleSecond="a web3 NFT card Game"
-                                 subTitle="Connect your wallet to start playing"
-                                 subTitleSecond="the ultimate Web3 Battle Card Game"
+                                 titleSecond="the NFT social network"
+                                 subTitle="Start chatting anonymously with"
+                                 subTitleSecond="users to exchange ideas and opinions"
                                  component={gifComponent}
                                  input={{ placeholder: "Votre placeholder", btnTitle: "Go", onClick: joinBattle }}
                     />
@@ -58,10 +58,10 @@ const data = [
         img: paranom,
     },
     {
-        title: "Join a battle",
+        title: "Join the chat",
         description: "Well, aren't you going up to the lake tonight, you've been planning it for two weeks.",
         tag: "STEP-03",
-        img: battle,
+        img: discussion,
     },
     {
         title: "Have fun",

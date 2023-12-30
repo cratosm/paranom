@@ -46,7 +46,6 @@ export const HomePage = () => {
 
     const connectWallet = async () => {
         if (window.ethereum) {
-            console.log("detected");
             await initWeb3();
             const result = await contract.methods.getGreeting().call();
             setData(result);
@@ -58,15 +57,15 @@ export const HomePage = () => {
     return (
         <div className="bg-neutral-300 h-full flex items-start justify-center">
             <div className="h-full flex flex-col w-11/12 md:w-11/12 2xl:w-2/3">
-                {data}
                 <UiHeader button={{ title: "Connect", color: "neutral", onClick: connectWallet }} />
                 <UiModal showModal={show}
                          closeModal={() => setShow(false)}
-                         title="Error"
+                         title="Sorry..."
                          description="Wallet Not Detected"
                          btnTitle="Ok"
                          icon={<Warning color="red" variant="600"/>}
                 />
+                {data}
                 {itemSelected === "Game" ? <GamePage /> : <CollectionPage />}
                 <BallsEffect />
 
