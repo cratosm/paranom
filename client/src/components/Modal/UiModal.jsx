@@ -36,6 +36,7 @@ export const UiModal = ({ showModal, closeModal, title, description, color = "re
         <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={controls}
+            transition={{ ease: "easeOut", duration: 0.5 }}
             className={`fixed z-40 inset-0 overflow-y-auto ${
                 showModal ? "block" : "hidden"
             }`}

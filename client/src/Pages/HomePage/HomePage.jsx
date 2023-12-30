@@ -63,9 +63,9 @@ export const HomePage = () => {
                 <UiModal showModal={show}
                          closeModal={() => setShow(false)}
                          title="Error"
-                         description="Wallet non connecté"
+                         description="Wallet Not Detected"
                          btnTitle="Ok"
-                         icon={<Warning/>}
+                         icon={<Warning color="red" variant="600"/>}
                 />
                 {itemSelected === "Game" ? <GamePage /> : <CollectionPage />}
                 <BallsEffect />

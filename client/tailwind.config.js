@@ -29,7 +29,7 @@ export default {
     },
     safelist: [
         {
-            pattern: /bg-(red|orange|green|blue|neutral)-(100|200|300|500)/,
+            pattern: /(bg|text)-(red|orange|green|blue|neutral)-(100|200|300|500|600|700|800|900)/,
         },
     ],
     plugins: [],
