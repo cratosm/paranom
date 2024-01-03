@@ -1,7 +1,6 @@
 import {UiInput} from "../Input/UiInput";
 
-export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input, component}) => {
-    const { placeholder, btnTitle, onClick } = input || {};
+export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input, componentRight, componentInteractive}) => {
 
     return (
         <div>
@@ -30,15 +29,11 @@ export const UiSubHeader = ({title, titleSecond, subTitle, subTitleSecond, input
                                 subTitle
                             )}
                         </p>
-                        {input &&
-                            <div className="mt-7 xl:ml-2 ">
-                                <UiInput btnTitle={btnTitle} placeholder={placeholder} onClick={onClick}/>
-                            </div>
-                        }
+                        {componentInteractive}
                     </div>
                 </div>
                 <div className="md:w-1/2 flex items-center justify-center pt-10 md:pt-0 overflow-visible">
-                    {component}
+                    {componentRight}
                 </div>
             </div>
         </div>

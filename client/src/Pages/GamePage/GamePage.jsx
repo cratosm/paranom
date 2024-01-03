@@ -8,14 +8,17 @@ import wallet from "../../assets/Image/wallet.png";
 import fireworks from "../../assets/Image/fireworks.png";
 import discussion from "../../assets/Image/discussion_talk.png";
 import paranom from "../../assets/Image/Lelouch F.png";
+import {UiButton} from "../../components/Button/UiButton.jsx";
 
 export const GamePage = () => {
     const gifComponent = <img src={ParanomBoomrang} alt="ParanomBoomerang"
                               className="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-5/12" />;
 
     const joinBattle = () => {
-        console.log("Go")
+        console.log("Join")
     };
+
+    const buttonComponent = <UiButton title="Connect" color="neutral" onClick={joinBattle} />;
 
     return (
         <div>
@@ -25,8 +28,9 @@ export const GamePage = () => {
                                  titleSecond="the NFT social network"
                                  subTitle="Start chatting anonymously with"
                                  subTitleSecond="users to exchange ideas and opinions"
-                                 component={gifComponent}
-                                 input={{ placeholder: "Votre placeholder", btnTitle: "Go", onClick: joinBattle }}
+                                 componentRight={gifComponent}
+                                 componentInteractive={buttonComponent}
+
                     />
                 </EaseOutWhenVisibleDown>
             </div>

@@ -32,7 +32,7 @@ export const CollectionPage = () => {
                                  titleSecond="an art of Anonymity"
                                  subTitle="Immerse yourself in a series of"
                                  subTitleSecond="mysterious unique portraits"
-                                 component={profilesComponent}
+                                 componentRight={profilesComponent}
                     />
                 </EaseOutWhenVisibleDown>
             </div>
