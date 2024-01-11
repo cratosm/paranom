@@ -8,8 +8,12 @@ import thomas from "../../assets/Collection/PP/Thomas.png";
 import henri from "../../assets/Collection/PP/Henri.png";
 import {UiSubHeader} from "../../components/SubHeader/UiSubHeader.jsx";
 import {UiGallery} from "../../components/Gallery/UiGallery";
+import {useRecoilState} from "recoil";
+import {listedItemsState} from "../../Atoms/ListedItems.jsx";
 
 export const CollectionPage = () => {
+    const [listedItems] = useRecoilState(listedItemsState);
+
     const profilesComponent = (
         <div className="flex">
             <div className="rotate-[-10deg]">
@@ -47,7 +51,7 @@ export const CollectionPage = () => {
             <div className="pb-5 mt-20">
                 <EaseOutWhenVisibleLeft>
                     <UiTitle title="Explore collection" />
-                    <UiGallery />
+                    <UiGallery data={listedItems}/>
                 </EaseOutWhenVisibleLeft>
             </div>
 

@@ -9,13 +9,16 @@ import fireworks from "../../assets/Image/fireworks.png";
 import discussion from "../../assets/Image/discussion_talk.png";
 import paranom from "../../assets/Image/Lelouch F.png";
 import {UiButton} from "../../components/Button/UiButton.jsx";
+import { useNavigate } from 'react-router-dom';
 
 export const GamePage = () => {
+    const navigate = useNavigate();
     const gifComponent = <img src={ParanomBoomrang} alt="ParanomBoomerang"
                               className="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-5/12" />;
 
     const joinBattle = () => {
-        console.log("Join")
+        console.log("Join");
+        navigate('/channel');
     };
 
     const buttonComponent = <UiButton title="Connect" color="neutral" onClick={joinBattle} />;

@@ -6,12 +6,12 @@ import paraSpiderman from "../../assets/Collection/Spiderman B H.png";
 import paraAmber from "../../assets/Collection/Amber H.png";
 import {UiCardImage} from "../Card/UiCardImage";
 
-export const UiGallery = () => {
+export const UiGallery = ({data = []}) => {
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {data.map((item, index) => (
                 <div key={index} className="relative overflow-hidden rounded-lg">
-                    <UiCardImage title={item.name} description={item.description} image={item.img} className="w-full h-full object-cover" />
+                    <UiCardImage title={item.name} description={item.description} image={item.image} className="w-full h-full object-cover" />
                 </div>
             ))}
         </div>
@@ -19,51 +19,51 @@ export const UiGallery = () => {
 };
 
 
-const data = [
+const dataPara = [
     {
         name: `Daft`,
-        img: paraDaft,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraDaft,
+        description: "Anonymity Collection I"
     },
     {
         name: `Lelouch`,
-        img: paraLelouch,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraLelouch,
+        description: "Anonymity Collection I"
     },
     {
         name: `Freddy`,
-        img: paraFreddy,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraFreddy,
+        description: "Anonymity Collection I"
     },
     {
         name: `Kill Bill`,
-        img: paraKill,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraKill,
+        description: "Anonymity Collection I"
     },
     {
         name: `Spiderman`,
-        img: paraSpiderman,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraSpiderman,
+        description: "Anonymity Collection I"
     },
     {
         name: `Amber H`,
-        img: paraAmber,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraAmber,
+        description: "Anonymity Collection I"
     },
     {
         name: `Kill Bill`,
-        img: paraKill,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraKill,
+        description: "Anonymity Collection I"
     },
     {
         name: `Spiderman`,
-        img: paraSpiderman,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraSpiderman,
+        description: "Anonymity Collection I"
     },
     {
         name: `Amber H`,
-        img: paraAmber,
-        description: `Lorem ipsum dolor sit amet`
+        image: paraAmber,
+        description: "Anonymity Collection I"
     },
 
 ];
