@@ -14,8 +14,9 @@ export const UiModal = ({ showModal, closeModal, title, description, color = "re
     const controls = useAnimation();
 
     buttons.forEach((btn) => {
+        let btnColor = btn.color ?? color;
         if (!btn.className)
-            btn.className = `w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-${btn.color}-500 text-base font-medium text-white hover:bg-${btn.color}-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${btn.color}-500 sm:ml-3 sm:w-auto sm:text-sm`;
+            btn.className = `w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-${btnColor}-500 text-base font-medium text-white hover:bg-${btnColor}-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${btnColor}-500 sm:ml-3 sm:w-auto sm:text-sm`;
     });
 
     const onClick = async (btnFunction) => {

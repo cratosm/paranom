@@ -6,7 +6,7 @@ import {itemSelectedState} from "../../Atoms/ItemSelectedState.jsx";
 import {UiButton} from "../Button/UiButton";
 
 // https://tailwindcomponents.com/component/free-tailwind-css-header-component
-export const UiHeader = ({items = ["Game", "Collection"], button}) => {
+export const UiHeader = ({items = ["Game", "Collection"], button, componentEnd}) => {
     const { title, onClick, color, size } = button || {};
     const [selected, setSelected] = useRecoilState(itemSelectedState);
 
@@ -42,7 +42,7 @@ export const UiHeader = ({items = ["Game", "Collection"], button}) => {
 
     return (
         <div>
-            <div className="py-5">
+            <div className="pb-3 pt-5">
                 <nav className="flex justify-between">
                     <div className="flex items-center justify-center space-x-3 lg:pr-16 pl-3">
                         <img src={logo} alt="Logo" className="w-40 " />
@@ -72,11 +72,7 @@ export const UiHeader = ({items = ["Game", "Collection"], button}) => {
                             )}
                         </ul>
                     </div>
-                    {button &&
-                        <div className="flex space-x-5 justify-center items-center pl-2">
-                            <UiButton title={title} color={color} size={size} onClick={onClick} />
-                        </div>
-                    }
+                    {componentEnd}
                 </nav>
 
                 <EaseOutWhenVisibleLeft>

@@ -1,3 +1,5 @@
+import { ethers } from 'ethers';
+
 export const NftStorageGateway = "https://nftstorage.link/ipfs/";
 
 export const convertIpfsUrl = (ipfsUrl, gatewayBaseUrl = "https://ipfs.io/ipfs/") => {
@@ -17,16 +19,21 @@ export const loadItems = async (marketplace, nft) => {
     for (let indx = 1; indx <= itemCount; indx++) {
         const i = await marketplace.methods.items(indx).call();
         const uri = await nft.methods.tokenURI(i.tokenId).call();
-        const response = await fetch(uri)
-        const metadata = await response.json()
+        const response = await fetch(uri);
+        const metadata = await response.json();
         let item = {
-            price: i.price,
-            itemId: i.itemId,
+            buttonInfos: {
+                title: "Buy a Paranom",
+                variation: "500"
+            },
+            id: i.itemId,
+            price: ethers.formatEther(i.price) + " ETH",
             name: metadata.name,
             description: metadata.description,
-            image: convertIpfsUrl(metadata.image, NftStorageGateway)
-        }
-        listedItems.push(item)
+            image: convertIpfsUrl(metadata.image, NftStorageGateway),
+            attributes: metadata.attributes
+        };
+        listedItems.push(item);
     }
     return listedItems;
 }

@@ -4,17 +4,20 @@ import paraFreddy from "../../assets/Collection/Freddy Mercury F.png";
 import paraKill from "../../assets/Collection/Kill Bill H.png";
 import paraSpiderman from "../../assets/Collection/Spiderman B H.png";
 import paraAmber from "../../assets/Collection/Amber H.png";
-import {UiCardImage} from "../Card/UiCardImage";
+import {UiCardPurchasable} from "../Card/UiCardPurchasable";
 
-export const UiGallery = ({data = []}) => {
+export const UiGalleryPurchasable = ({data = [], web3Infos}) => {
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {data.map((item, index) => (
                 <div key={index} className="relative overflow-hidden rounded-lg">
-                    <UiCardImage title={item.name}
+                    <UiCardPurchasable
+                                 title={item.name}
+                                 id={item.id}
                                  description={item.description}
                                  image={item.image}
                                  price={item.price}
+                                 web3Infos={web3Infos}
                                  buttonInfos={item.buttonInfos}
                                  className="w-full h-full object-cover" />
                 </div>

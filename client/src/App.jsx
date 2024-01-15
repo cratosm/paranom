@@ -11,14 +11,18 @@ import Marketplace from "./contracts/Marketplace.json";
 import MarketplaceAddress from "./contracts/Marketplace-address.json";
 import NFT from "./contracts/NFT.json";
 import NFTAddress from "./contracts/NFT-address.json";
-import {listedItemsState} from "./Atoms/ListedItems.jsx";
+import {listedItemsState} from "./Atoms/ListedItemsState.jsx";
+import {UiModal} from "./components/Modal/UiModal.jsx";
+import {modalInfosState} from "./Atoms/ModalInfosState.jsx";
 
 export default function App() {
     const canLoadConfig = useRecoilValue(canLoadConfigState);
+    const modalInfos = useRecoilValue(modalInfosState);
     const [account, setAccount] = useState();
     const [nft, setNFT] = useState();
     const [marketplace, setMarketplace] = useState();
     const [, setListedItems] = useRecoilState(listedItemsState);
+    const [show, setShow] = useState(false);
 
     const initWeb3 = async () => {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -48,15 +52,26 @@ export default function App() {
         }
     }, [canLoadConfig]);
 
+    useEffect( () => {
+        setShow(modalInfos.show);
+    }, [modalInfos]);
 
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={
-                    <HomePage marketplace={marketplace} nft={nft} account={account} />
+                    <HomePage web3Infos={{
+                        marketplace: marketplace,
+                        nft: nft,
+                        account: account
+                    }} />
                 } />
                 <Route path="/admin" element={
-                    <AdminPage marketplace={marketplace} nft={nft} account={account} />
+                    <AdminPage web3Infos={{
+                        marketplace: marketplace,
+                        nft: nft,
+                        account: account
+                    }} />
                 } />
                 <Route path="/channel" element={
                     <Test />
@@ -65,6 +80,14 @@ export default function App() {
                     <ChannelPage />
                 } />
             </Routes>
+            <UiModal showModal={show}
+                     closeModal={() => setShow(false)}
+                     title={modalInfos.title}
+                     description={modalInfos.description}
+                     btnTitle={modalInfos.btnTitle}
+                     icon={modalInfos.icon}
+                     color={modalInfos.color}
+            />
         </BrowserRouter>
     )
 }

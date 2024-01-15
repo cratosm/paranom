@@ -3,7 +3,6 @@ import {UiHeader} from "../../components/Header/UiHeader.jsx";
 import {BallsEffect} from "../../components/BallsEffect/BallsEffect.jsx";
 import {UiFooter} from "../../components/Footer/UiFooter.jsx";
 import {UiButton} from "../../components/Button/UiButton";
-import {UiModal} from "../../components/Modal/UiModal.jsx";
 import {Warning} from "../../components/svg/Warning.jsx";
 import {useState} from "react";
 import ParanomUri from "../../config/ParanomUri.json";
@@ -18,22 +17,19 @@ import {EaseOutWhenVisibleLeft} from "../../components/Motion/EaseOutWhenVisible
 import {UiTitle} from "../../components/Title/UiTitle.jsx";
 import UiJsonDisplay from "../../components/JsonDisplay/UiJsonDisplay.jsx";
 import json from "../../config/ParanomUri.json";
-import {listedItemsState} from "../../Atoms/ListedItems.jsx";
+import {listedItemsState} from "../../Atoms/ListedItemsState.jsx";
 import {UiGallery} from "../../components/Gallery/UiGallery";
 import {loadItems} from "../../utils/Web3Utils.jsx";
+import {UiProfile} from "../../components/UiProfile/UiProfile.jsx";
+import {modalInfosState} from "../../Atoms/ModalInfosState.jsx";
 
-export const AdminPage = ({marketplace, nft, account}) => {
+export const AdminPage = ({web3Infos}) => {
     const navigate = useNavigate();
     const [, setCanLoadConfig] = useRecoilState(canLoadConfigState);
     const [listedItems, setListedItems] = useRecoilState(listedItemsState);
-    const [show, setShow] = useState(false);
     const [showCollection, setShowCollection] = useState(false);
-    const [modalInfos, setModalInfos] = useState({
-        title: "",
-        description: "",
-        btnTitle: "",
-        icon: null,
-    });
+    const [isLoading, setIsLoading] = useState(false);
+    const [, setModalInfos] = useRecoilState(modalInfosState);
 
     const adminComponent = <img src={Admin} alt="Admin"
                               className="rounded-lg shadow-md border-8 border-violet-200 w-80 sm:w-80 lg:w-8/12 xl:w-6/12" />;
@@ -41,33 +37,29 @@ export const AdminPage = ({marketplace, nft, account}) => {
     const connectWallet = async () => {
         if (window.ethereum) {
             setCanLoadConfig(true);
-        }
-        else {
+        } else {
             setModalInfos({
                 title: "Sorry...",
                 description: "Wallet Not Detected",
                 btnTitle: "Ok",
                 icon: <Warning color="red" variant="600"/>,
+                show: true
             })
-            setShow(true);
         }
     }
 
-    const buttonComponent = account ?undefined : <UiButton title="Connect wallet" color="neutral" onClick={connectWallet} />;
+    const buttonComponent = web3Infos.account ? undefined : <UiButton title="Connect wallet" color="neutral" onClick={connectWallet} />;
 
     const mintAllParanom = async () => {
-        console.log("test nft", nft);
-        console.log("test marketplace", marketplace);
-        console.log("test account", account);
-        if (!marketplace || !nft || !account) {
+        if (!web3Infos.marketplace || !web3Infos.nft || !web3Infos.account) {
             setModalInfos({
                 title: "Sorry...",
                 description: "Wallet Not Detected",
                 btnTitle: "Ok",
                 icon: <Warning color="red" variant="600"/>,
-            })
-            setShow(true)
-            return
+                show: true
+            });
+            return;
         }
 
         const listingPrice = ethers.parseEther("2");
@@ -76,40 +68,36 @@ export const AdminPage = ({marketplace, nft, account}) => {
         });
 
         for (const uri of uris) {
-            console.log("test 1");
-            let mint = await nft.methods.mint(uri).send({ from: account, gas: 5000000 });
-            console.log("test 2");
-            await nft.methods.setApprovalForAll(marketplace.options.address, true).send({ from: account });
-            console.log("test 3", mint);
+            let mint = await web3Infos.nft.methods.mint(uri).send({ from: web3Infos.account, gas: 5000000 });
+            await web3Infos.nft.methods.setApprovalForAll(web3Infos.marketplace.options.address, true).send({ from: web3Infos.account });
             let tokenId = mint.events.Transfer.returnValues.tokenId;
-            console.log("test 4", tokenId);
-            await nft.methods.setApprovalForAll(marketplace.options.address, true).send({ from: account });
-            console.log("test 5");
-            const makeItem = await marketplace.methods.makeItem(nft.options.address, tokenId, listingPrice).send({ from: account, gas: 1000000 });
-            console.log("makeitem", makeItem);
+            await web3Infos.nft.methods.setApprovalForAll(web3Infos.marketplace.options.address, true).send({ from: web3Infos.account });
+            await web3Infos.marketplace.methods.makeItem(web3Infos.nft.options.address, tokenId, listingPrice).send({ from: web3Infos.account, gas: 1000000 });
         }
     };
 
     const collectionManagement = async () => {
-        if (listedItems.length === 0) {
-            let items = await loadItems(marketplace, nft);
-            setListedItems(items);
+        setIsLoading(true);
+        try {
+            if (listedItems.length === 0) {
+                let items = await loadItems(web3Infos.marketplace, web3Infos.nft);
+                setListedItems(items);
+            }
+            console.log("items", listedItems);
+            setShowCollection(!showCollection);
+            setIsLoading(false);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsLoading(false);
         }
-        setShowCollection(!showCollection);
     }
 
     return (
         <div className="bg-neutral-300 h-full flex items-start justify-center">
             <div className="h-full flex flex-col w-11/12 md:w-11/12 2xl:w-2/3">
-                <UiHeader items={["Admin"]} button={{ title: "Connect", color: "neutral" }}/>
-                <UiModal showModal={show}
-                         closeModal={() => setShow(false)}
-                         title={modalInfos.title}
-                         description="Wallet Not Detected"
-                         btnTitle="Ok"
-                         icon={<Warning color="red" variant="600"/>}
-                />
-                <div className="mt-8">
+                <UiHeader items={["Admin"]} componentEnd={<UiProfile name="Admin" />}/>
+                <div className="mt-10">
                     <EaseOutWhenVisibleDown>
                         <UiSubHeader title="Welcome to admin page"
                                      titleSecond="help user to enjoy PRNM"
@@ -134,6 +122,7 @@ export const AdminPage = ({marketplace, nft, account}) => {
                         <div className="pt-2">
                             <UiButton title={showCollection ? "Unsee the collection" : "See the collection"}
                                       color="neutral"
+                                      loading={isLoading}
                                       onClick={collectionManagement}/>
                         </div>
                         {showCollection &&

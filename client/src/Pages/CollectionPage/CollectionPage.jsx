@@ -7,11 +7,11 @@ import matthias from "../../assets/Collection/PP/Matthias.png";
 import thomas from "../../assets/Collection/PP/Thomas.png";
 import henri from "../../assets/Collection/PP/Henri.png";
 import {UiSubHeader} from "../../components/SubHeader/UiSubHeader.jsx";
-import {UiGallery} from "../../components/Gallery/UiGallery";
 import {useRecoilState} from "recoil";
-import {listedItemsState} from "../../Atoms/ListedItems.jsx";
+import {listedItemsState} from "../../Atoms/ListedItemsState.jsx";
+import {UiGalleryPurchasable} from "../../components/Gallery/UiGalleryPurchasable";
 
-export const CollectionPage = () => {
+export const CollectionPage = ({web3Infos}) => {
     const [listedItems] = useRecoilState(listedItemsState);
 
     const profilesComponent = (
@@ -29,7 +29,7 @@ export const CollectionPage = () => {
     );
 
     return (
-        <div>
+        <div className="mt-8">
             <div className="mt-8">
                 <EaseOutWhenVisibleDown>
                     <UiSubHeader title="Welcolme to Paranom"
@@ -51,7 +51,7 @@ export const CollectionPage = () => {
             <div className="pb-5 mt-20">
                 <EaseOutWhenVisibleLeft>
                     <UiTitle title="Explore collection" />
-                    <UiGallery data={listedItems}/>
+                    <UiGalleryPurchasable data={listedItems} web3Infos={web3Infos}/>
                 </EaseOutWhenVisibleLeft>
             </div>
 
