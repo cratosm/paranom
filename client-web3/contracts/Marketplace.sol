@@ -22,6 +22,9 @@ contract Marketplace is ReentrancyGuard {
 
     // itemId -> Item
     mapping(uint => Item) public items;
+    mapping (address => uint) private ownerItemsCount;
+    mapping (address => uint) private ownerItemProfile;
+    mapping (uint => address) private itemToOwner;
 
     event Offered(
         uint itemId,
@@ -83,6 +86,11 @@ contract Marketplace is ReentrancyGuard {
         item.sold = true;
         // transfer nftState to buyer
         item.nft.transferFrom(address(this), msg.sender, item.tokenId);
+
+        itemToOwner[_itemId] = msg.sender;
+        ownerItemsCount[msg.sender]++;
+        if (ownerItemsCount[msg.sender] == 1)
+            ownerItemProfile[msg.sender] = _tokenId;
         // emit Bought event
         emit Bought(
             _itemId,
@@ -93,6 +101,36 @@ contract Marketplace is ReentrancyGuard {
             msg.sender
         );
     }
+
+
+    function getMyItems() external view returns(Item[]) {
+        require(ownerItemsCount[msg.sender] > 0, "You have no items");
+
+        Item[] memory result = new Item[](ownerItemsCount[msg.sender]);
+        uint counter = 0;
+
+        for (uint i = 0; i < items.length; i++) {
+            if (items[i].buyer == msg.sender) {
+                result[counter] = items[i];
+                counter++;
+            }
+        }
+        return result;
+    }
+
+    function setOwnerItemProfile(uint _tokenId) external {
+        require(_tokenId > 0 && _tokenId <= itemCount, "item doesn't exist");
+        require(itemToOwner[_tokenId] == msg.sender, "It s not your item");
+
+        ownerItemProfile[msg.sender] = _tokenId;
+    }
+
+    function getOwnerItemProfile(address _owner) external view returns(Item) {
+        uint profileTokenId = ownerItemProfile[_owner];
+        require(profileTokenId > 0, "No profile set for this user");
+        return items[profileTokenId];
+    }
+
     function getTotalPrice(uint _itemId) view public returns(uint){
         return((items[_itemId].price*(100 + feePercent))/100);
     }
