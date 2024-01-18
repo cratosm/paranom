@@ -33,7 +33,8 @@ export const loadItems = async (marketplace, nft) => {
             image: convertIpfsUrl(metadata.image, NftStorageGateway),
             attributes: metadata.attributes
         };
-        listedItems.push(item);
+        if (!i.sold)
+            listedItems.push(item);
     }
     return listedItems;
 }

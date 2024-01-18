@@ -5,10 +5,19 @@ import {UiButton} from "../Button/UiButton";
 
 export const UiCardPurchasable = ({id, web3Infos, image, title, price, description, buttonInfos}) => {
     const buyItem = async () => {
-        console.log("web3Infos ", web3Infos);
-        console.log("id ", id);
-        const uri = await web3Infos.marketplace.methods.purchaseItem(id).send({ from: web3Infos.account, gas: 3000000000 });
-        console.log("uri ", uri);
+        //console.log("totalPrice (in Ether) ", ethers.formatEther(totalPrice));
+        //console.log("totalPrice (in Wei) ", totalPrice);
+        const totalPrice = await web3Infos.marketplace.methods.getTotalPrice(id).call();
+        try {
+            const uri = await web3Infos.marketplace.methods.purchaseItem(id).send({
+                from: web3Infos.account,
+                value: totalPrice,
+                gas: 3000000
+            });
+            console.log("Transaction result: ", uri);
+        } catch (e) {
+            console.error("Error during purchase: ", e);
+        }
     };
 
     return (
