@@ -41,6 +41,10 @@ contract Marketplace is ReentrancyGuard {
         address indexed seller,
         address indexed buyer
     );
+    event changeProfile(
+        uint tokenId,
+        address user
+    );
 
     constructor(uint _feePercent) {
         feeAccount = payable(msg.sender);
@@ -73,7 +77,7 @@ contract Marketplace is ReentrancyGuard {
         );
     }
 
-    function purchaseItem(uint _itemId) external payable nonReentrant {
+    function _purchaseItem(uint _itemId) internal payable nonReentrant {
         uint _totalPrice = getTotalPrice(_itemId);
         Item storage item = items[_itemId];
         require(_itemId > 0 && _itemId <= itemCount, "item doesn't exist");
@@ -123,6 +127,11 @@ contract Marketplace is ReentrancyGuard {
         require(itemToOwner[_tokenId] == msg.sender, "It s not your item");
 
         ownerItemProfile[msg.sender] = _tokenId;
+
+        emit changeProfile(
+            item.tokenId,
+            msg.sender
+        );
     }
 
     function getOwnerItemProfile(address _owner) external view returns(Item) {

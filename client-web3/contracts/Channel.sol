@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 
-contract ParanomChannel {
+contract Channel {
     struct Message {
         address sender;
         string content;
@@ -18,7 +18,7 @@ contract ParanomChannel {
     address private owner;
     string public channelName;
     mapping(address => bool) public members;
-    mapping(address => Message[]) public myMessages;
+    mapping(address => uint) public addressMessageCounter;
     Message[] public channelMessages;
 
     modifier onlyOwner() {
@@ -37,12 +37,16 @@ contract ParanomChannel {
         members[msg.sender] = true;
     }
 
-    function joinChannel() public {
+    function _joinChannel() internal {
         members[msg.sender] = true;
     }
 
-    function leaveChannel() public {
+    function _leaveChannel() internal {
         members[msg.sender] = false;
+    }
+
+    function canJoinChannel()  public view returns (bool)  {
+        return members[msg.sender];
     }
 
     function sendMessage(string memory _content) public onlyMembers {
@@ -55,16 +59,23 @@ contract ParanomChannel {
         });
 
         channelMessages.push(newMessage);
-        myMessages[msg.sender].push(newMessage);
+        addressMessageCounter[msg.sender]++;
 
         emit MessageSent(msg.sender, _content, block.timestamp);
     }
 
-    function getCanalMessages() public view returns (Message[] memory) {
-        return channelMessages;
-    }
-
     function getMyMessages() public view returns (Message[] memory) {
-        return myMessages[msg.sender];
+        require(addressMessageCounter[msg.sender] > 0, "You have never send a message");
+        Message[] memory myMessage = new Message[](addressMessageCounter[msg.sender]);
+        uint counter = 0;
+
+        for (uint i = 0; i < channelMessages.length; i++) {
+            if (channelMessages[i].sender == msg.sender) {
+                myMessage[counter] = channelMessages[i];
+                counter++;
+            }
+        }
+
+        return myMessage;
     }
 }
