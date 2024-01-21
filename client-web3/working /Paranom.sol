@@ -12,7 +12,7 @@ contract Paranom is Marketplace, Channel {
     {}
 
     function purchaseItem(uint _itemId) external payable nonReentrant {
-        _purchaseItem(_itemId);
+        purchaseItem(_itemId);
         _joinChannel();
     }
 }

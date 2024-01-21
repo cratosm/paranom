@@ -1,7 +1,8 @@
 const Marketplace = artifacts.require("Marketplace") ;
 
 module.exports = function (deployer) {
-    const feePercent = 10; // Par exemple, remplacez 10 par la valeur réelle que vous souhaitez
+    const feePercent = 10;
+    const channelName = "Paranom";
 
-    deployer.deploy(Marketplace, feePercent);
+    deployer.deploy(Marketplace, channelName, feePercent);
 }
