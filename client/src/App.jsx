@@ -14,13 +14,15 @@ import NFTAddress from "./contracts/NFT-address.json";
 import {listedItemsState} from "./Atoms/ListedItemsState.jsx";
 import {UiModal} from "./components/Modal/UiModal.jsx";
 import {modalInfosState} from "./Atoms/ModalInfosState.jsx";
-import {loadItems} from "./utils/Web3Utils.jsx";
+import {getProfileItem, loadItems} from "./utils/Web3Utils.jsx";
 import EventSubscriber from "./utils/events/EventSubscriber.jsx";
+import {defaultProfileItem, profileItemState} from "./Atoms/ProfileItemState.jsx";
 
 export default function App() {
     const urlRpc = "http://localhost:7545";
     const canLoadConfig = useRecoilValue(canLoadConfigState);
     const modalInfos = useRecoilValue(modalInfosState);
+    const [profileItem, setProfileItem] = useRecoilState(profileItemState);
     const [account, setAccount] = useState();
     const [nft, setNFT] = useState();
     const [marketplace, setMarketplace] = useState();
@@ -29,11 +31,24 @@ export default function App() {
     const [show, setShow] = useState(false);
     const [eventSubscriber, setEventSubscriber] = useState(null);
 
+    const handleAccountsChanged = (accounts) => {
+        if (accounts.length === 0) {
+            console.log('Veuillez connecter MetaMask.');
+            setProfileItem(defaultProfileItem);
+            setAccount(null);
+        } else if (accounts[0] !== account) {
+            setAccount(accounts[0]);
+            setProfileItem(initProfilePicture(accounts[0]));
+            console.log('L adresse du compte a changé:', accounts[0]);
+        }
+    };
+
     const initWeb3 = async () => {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const web3Instance = new Web3(window.ethereum);
         setAccount(accounts[0]);
         await loadContracts(web3Instance);
+        window.ethereum.on('accountsChanged', handleAccountsChanged);
         subscribeToEvents();
     };
 
@@ -51,12 +66,11 @@ export default function App() {
     const onBoughtCallback = (itemId, nft, tokenId, itemPrice, seller, buyer) => {
         console.log(`New Bought Event - itemId: ${itemId}, nft: ${nft}, tokenId: ${tokenId}, price: ${itemPrice}, seller: ${seller}, buyer: ${buyer}`);
         setRefreshItems(true);
+        if (profileItem.name === defaultProfileItem.name)
+            setProfileItem(initProfilePicture(account));
     };
 
     const subscribeToEvents = () => {
-        if (!account) return;
-
-        console.log("here");
         const subscriber = new EventSubscriber(
             MarketplaceAddress.address,
             Marketplace.abi,
@@ -69,13 +83,24 @@ export default function App() {
 
     const unsubscribeFromEvents = () => {
         if (eventSubscriber) {
-            console.log("here");
+            window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
             eventSubscriber.unsubscribeFromBoughtEvents("Bought", onBoughtCallback);
         }
     };
 
     useEffect(() => {
         return unsubscribeFromEvents;
+    }, [account]);
+
+    async function initProfilePicture(account) {
+        const profileItem = await getProfileItem(marketplace, nft, account);
+        setProfileItem(profileItem);
+    }
+
+    useEffect(() => {
+        if (account) {
+            initProfilePicture(account);
+        }
     }, [account]);
 
     useEffect( () => {
@@ -122,7 +147,11 @@ export default function App() {
                     }} />
                 } />
                 <Route path="/channel" element={
-                    <Test />
+                    <Test web3Infos={{
+                        marketplace: marketplace,
+                        nft: nft,
+                        account: account
+                    }} />
                 } />
                 <Route path="/test" element={
                     <ChannelPage />

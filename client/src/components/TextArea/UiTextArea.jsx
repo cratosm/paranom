@@ -1,10 +1,20 @@
-export const UiTextArea = ({loading = false}) => {
+export const UiTextArea = ({loading, text, setText, onClick}) => {
+    const handleInputChange = (event) => {
+        setText(event.target.value);
+    };
+
     return (
         <section className="mt-6 border rounded-xl bg-gray-50 mb-3">
-                    <textarea className="w-full bg-gray-50 p-2 rounded-xl" placeholder="Type your reply here..."
-                              rows="3"></textarea>
+                    <textarea className="w-full bg-gray-50 p-2 rounded-xl"
+                              placeholder="Type your reply here..."
+                              rows="3"
+                              value={text}
+                              onChange={handleInputChange}
+                    ></textarea>
             <div className="flex items-center justify-end p-2">
-                <button className="bg-purple-600 text-white px-6 py-2 rounded-xl">
+                <button className="bg-purple-600 text-white px-6 py-2 rounded-xl"
+                        onClick={onClick}
+                >
                     {loading && <svg aria-hidden="true" role="status"
                          className="inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600"
                          viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

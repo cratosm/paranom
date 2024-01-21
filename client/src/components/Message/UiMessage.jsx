@@ -1,4 +1,4 @@
-export const UiMessage = () => {
+export const UiMessage = ({message, image, tag, name}) => {
     return (
         <div className="">
             <div
@@ -7,16 +7,16 @@ export const UiMessage = () => {
                     <div className="relative h-10 w-10">
                         <img
                             className="h-full w-full rounded-full object-cover object-center"
-                            src="https://images.unsplash.com/photo-1645378999013-95abebf5f3c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
+                            src={image}
+                            alt="profile"
                         />
                     </div>
                     <div className="flex-1">
                         <h4 className="pr-6 font-medium text-slate-900">
-                            Palma Majorque <span className="ml-2 font-normal text-slate-500">5 min ago</span>
+                            {name} <span className="ml-2 font-normal text-slate-500">{tag}</span>
                         </h4>
                         <div className="mt-1 text-slate-500">
-                            Your team has made changes to your company profile since you last logged in.
+                            {message}
                         </div>
                     </div>
                 </div>

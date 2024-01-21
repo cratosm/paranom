@@ -13903,12 +13903,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x49721806938605a9551cE6907f8F94A062CC721A",
-      "transactionHash": "0xa5775828ab49f359d6982c0defec12dd9f5ba3b4f4374ff5275369022e679509"
+      "address": "0x8E907065C25d2bb31b079Ce6AC8993145344312a",
+      "transactionHash": "0x10cea821e6e899643f62ba70baa8a0624b9f2dda202af209beb24774e17748b2"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-01-09T12:04:31.686Z",
+  "updatedAt": "2024-01-21T15:13:27.094Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

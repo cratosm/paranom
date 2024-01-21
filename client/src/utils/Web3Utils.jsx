@@ -1,4 +1,5 @@
-import { ethers } from 'ethers';
+import {ethers} from 'ethers';
+import {defaultProfileItem} from "../Atoms/ProfileItemState.jsx";
 
 export const NftStorageGateway = "https://nftstorage.link/ipfs/";
 
@@ -37,4 +38,36 @@ export const loadItems = async (marketplace, nft) => {
             listedItems.push(item);
     }
     return listedItems;
+}
+
+export const getProfileItem = async (marketplace, nft, account) => {
+    try {
+        const itemProfileId = await marketplace.methods.getOwnerItemProfile(account).call();
+        const uri = await nft.methods.tokenURI(itemProfileId.itemId).call();
+        const response = await fetch(uri);
+        const metadata = await response.json();
+
+        if (!metadata || !metadata.attributes) {
+            throw new Error("Invalid metadata");
+        }
+
+        const { color_primary, color_secondary } = metadata.attributes[0];
+        return {
+            image: convertIpfsUrl(metadata.image, NftStorageGateway),
+            colors: [color_primary, color_secondary],
+            name: metadata.name
+        };
+    } catch (e) {
+        return defaultProfileItem;
+    }
+}
+
+export const getMessages = async (marketplace, account) => {
+    try {
+        return await marketplace.methods.getMessages().call({
+            from: account
+        });
+    } catch (e) {
+        console.error("error", e);
+    }
 }

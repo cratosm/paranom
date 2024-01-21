@@ -3,8 +3,9 @@ pragma solidity ^0.8.6;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./Channel.sol";
 
-contract Marketplace is ReentrancyGuard {
+contract Marketplace is ReentrancyGuard, Channel {
 
     // Variables
     address payable public feeAccount;
@@ -17,6 +18,7 @@ contract Marketplace is ReentrancyGuard {
         uint tokenId;
         uint price;
         address payable seller;
+        address owner;
         bool sold;
     }
 
@@ -46,7 +48,9 @@ contract Marketplace is ReentrancyGuard {
         address user
     );
 
-    constructor(uint _feePercent) {
+    constructor(string memory _channelName, uint _feePercent)
+        Channel(_channelName)
+    {
         feeAccount = payable(msg.sender);
         feePercent = _feePercent;
     }
@@ -65,6 +69,7 @@ contract Marketplace is ReentrancyGuard {
             _tokenId,
             _price,
             payable(msg.sender),
+            msg.sender,
             false
         );
         // emit Offered event
@@ -77,7 +82,7 @@ contract Marketplace is ReentrancyGuard {
         );
     }
 
-    function _purchaseItem(uint _itemId) internal payable nonReentrant {
+    function purchaseItem(uint _itemId) public payable nonReentrant {
         uint _totalPrice = getTotalPrice(_itemId);
         Item storage item = items[_itemId];
         require(_itemId > 0 && _itemId <= itemCount, "item doesn't exist");
@@ -90,11 +95,14 @@ contract Marketplace is ReentrancyGuard {
         item.sold = true;
         // transfer nftState to buyer
         item.nft.transferFrom(address(this), msg.sender, item.tokenId);
+        item.owner = msg.sender;
+        _joinChannel();
 
         itemToOwner[_itemId] = msg.sender;
         ownerItemsCount[msg.sender]++;
-        if (ownerItemsCount[msg.sender] == 1)
-            ownerItemProfile[msg.sender] = _tokenId;
+        if (ownerItemsCount[msg.sender] == 1) {
+            ownerItemProfile[msg.sender] = item.tokenId;
+        }
         // emit Bought event
         emit Bought(
             _itemId,
@@ -107,14 +115,14 @@ contract Marketplace is ReentrancyGuard {
     }
 
 
-    function getMyItems() external view returns(Item[]) {
+    function getMyItems() external view returns(Item[] memory) {
         require(ownerItemsCount[msg.sender] > 0, "You have no items");
 
         Item[] memory result = new Item[](ownerItemsCount[msg.sender]);
         uint counter = 0;
 
-        for (uint i = 0; i < items.length; i++) {
-            if (items[i].buyer == msg.sender) {
+        for (uint i = 0; i < itemCount; i++) {
+            if (items[i].owner == msg.sender) {
                 result[counter] = items[i];
                 counter++;
             }
@@ -129,12 +137,12 @@ contract Marketplace is ReentrancyGuard {
         ownerItemProfile[msg.sender] = _tokenId;
 
         emit changeProfile(
-            item.tokenId,
+            _tokenId,
             msg.sender
         );
     }
 
-    function getOwnerItemProfile(address _owner) external view returns(Item) {
+    function getOwnerItemProfile(address _owner) external view returns(Item memory) {
         uint profileTokenId = ownerItemProfile[_owner];
         require(profileTokenId > 0, "No profile set for this user");
         return items[profileTokenId];

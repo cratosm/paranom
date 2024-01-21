@@ -1,4 +1,4 @@
-export const UiMyMessage = () => {
+export const UiMyMessage = ({message, tag }) => {
     return (
         <div className="">
             <div
@@ -6,10 +6,10 @@ export const UiMyMessage = () => {
                 <div className="flex space-x-4">
                     <div className="flex-1">
                         <h4 className="pr-6 font-medium text-slate-900">
-                            Me <span className="ml-2 font-normal text-slate-500">5 min ago</span>
+                            Me <span className="ml-2 font-normal text-slate-500">{tag}</span>
                         </h4>
                         <div className="mt-1 text-slate-500">
-                            Your team has made changes to your company profile since you last logged in.
+                            {message}
                         </div>
                     </div>
                 </div>

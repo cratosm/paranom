@@ -14,10 +14,12 @@ import {useEffect} from "react";
 import {useRecoilState} from "recoil";
 import {canLoadConfigState} from "../../Atoms/CanLoadConfigState.jsx";
 import {modalInfosState} from "../../Atoms/ModalInfosState.jsx";
+import {useNavigate} from "react-router-dom";
 
 export const GamePage = ({web3Infos}) => {
     const [, setCanLoadConfig] = useRecoilState(canLoadConfigState);
     const [, setModalInfos] = useRecoilState(modalInfosState);
+    const navigate = useNavigate();
 
     const gifComponent = <img src={ParanomBoomrang} alt="ParanomBoomerang"
                               className="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-5/12" />;
@@ -36,8 +38,15 @@ export const GamePage = ({web3Infos}) => {
         }
     }
 
-    const joinChannel = () => {
-        console.log("yop");
+    const joinChannel =  async () => {
+        const canJoinChannel = await web3Infos.marketplace.methods.canJoinChannel().call({
+            from: web3Infos.account
+        });
+
+       if (canJoinChannel) {
+           navigate("/channel");
+       }
+
     };
 
     useEffect( () => {
