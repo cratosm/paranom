@@ -58,6 +58,7 @@ export const getProfileItem = async (marketplace, nft, account) => {
             name: metadata.name
         };
     } catch (e) {
+        console.log("error", e);
         return defaultProfileItem;
     }
 }

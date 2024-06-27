@@ -32,7 +32,7 @@ export const CollectionPage = ({web3Infos}) => {
         <div className="mt-8">
             <div className="mt-8">
                 <EaseOutWhenVisibleDown>
-                    <UiSubHeader title="Welcolme to Paranom"
+                    <UiSubHeader title="Welcome to Paranom"
                                  titleSecond="an art of Anonymity"
                                  subTitle="Immerse yourself in a series of"
                                  subTitleSecond="mysterious unique portraits"

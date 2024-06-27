@@ -10,23 +10,27 @@ import discussion from "../../assets/Image/discussion_talk.png";
 import paranom from "../../assets/Image/Lelouch F.png";
 import {UiButton} from "../../components/Button/UiButton.jsx";
 import {Warning} from "../../components/svg/Warning.jsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useRecoilState} from "recoil";
 import {canLoadConfigState} from "../../Atoms/CanLoadConfigState.jsx";
 import {modalInfosState} from "../../Atoms/ModalInfosState.jsx";
 import {useNavigate} from "react-router-dom";
+import {Lock} from "../../components/svg/Lock";
+import {UiModalLogin} from "../../components/Modal/UiModalLogin.jsx";
+import {useDisconnect} from "wagmi";
 
 export const GamePage = ({web3Infos}) => {
-    const [, setCanLoadConfig] = useRecoilState(canLoadConfigState);
     const [, setModalInfos] = useRecoilState(modalInfosState);
     const navigate = useNavigate();
+    const [showModalLogin, setShowModalLogin] = useState(false);
+    const { disconnect } = useDisconnect()
 
     const gifComponent = <img src={ParanomBoomrang} alt="ParanomBoomerang"
                               className="rounded-lg shadow-md border-8 border-violet-200 w-72 sm:w-80 lg:w-7/12 xl:w-5/12" />;
 
     const connectWallet = async () => {
         if (window.ethereum) {
-            setCanLoadConfig(true);
+            setShowModalLogin(true);
         } else {
             setModalInfos({
                 title: "Sorry...",
@@ -45,6 +49,15 @@ export const GamePage = ({web3Infos}) => {
 
        if (canJoinChannel) {
            navigate("/channel");
+       } else {
+           setModalInfos({
+               title: "Sorry...",
+               description: "You are not a member of Paranom..",
+               btnTitle: "Ok",
+               color: "blue",
+               icon: <Lock />,
+               show: true
+           })
        }
 
     };
@@ -54,14 +67,18 @@ export const GamePage = ({web3Infos}) => {
     }, [web3Infos.account]);
 
     const buttonComponent = web3Infos.account
-        ? <UiButton title="Join channel" color="neutral" onClick={joinChannel} />
+        ? <div className="space-x-3">
+            <UiButton title="Disconnect" color="neutral" onClick={() => disconnect()} />
+            <UiButton title="Join channel" color="blue" variation="300" onClick={joinChannel} />
+        </div>
         : <UiButton title="Connect wallet" color="neutral" onClick={connectWallet} />;
 
     return (
         <div className="mt-8">
             <div className="mt-8">
+                <UiModalLogin closeModal={() => setShowModalLogin(false)} showModal={showModalLogin} />
                 <EaseOutWhenVisibleDown>
-                    <UiSubHeader title="Welcolme to Paranom"
+                    <UiSubHeader title="Welcome to Paranom"
                                  titleSecond="the NFT social network"
                                  subTitle="Start chatting anonymously with"
                                  subTitleSecond="users to exchange ideas and opinions"

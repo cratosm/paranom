@@ -17,6 +17,7 @@ import {modalInfosState} from "./Atoms/ModalInfosState.jsx";
 import {getProfileItem, loadItems} from "./utils/Web3Utils.jsx";
 import EventSubscriber from "./utils/events/EventSubscriber.jsx";
 import {defaultProfileItem, profileItemState} from "./Atoms/ProfileItemState.jsx";
+import {useAccount} from "wagmi";
 
 export default function App() {
     const urlRpc = "http://localhost:7545";
@@ -30,23 +31,24 @@ export default function App() {
     const [, setListedItems] = useRecoilState(listedItemsState);
     const [show, setShow] = useState(false);
     const [eventSubscriber, setEventSubscriber] = useState(null);
+    const accountFromWagmi = useAccount()
 
-    const handleAccountsChanged = (accounts) => {
+    const handleAccountsChanged = async (accounts) => {
         if (accounts.length === 0) {
             console.log('Veuillez connecter MetaMask.');
             setProfileItem(defaultProfileItem);
             setAccount(null);
-        } else if (accounts[0] !== account) {
-            setAccount(accounts[0]);
-            setProfileItem(initProfilePicture(accounts[0]));
-            console.log('L adresse du compte a changé:', accounts[0]);
+        } else if (accountFromWagmi.address !== account) {
+            setAccount(accountFromWagmi.address);
+            await initProfilePicture(accountFromWagmi.address);
+            console.log('L adresse du compte a changé:', accountFromWagmi.address);
         }
     };
 
     const initWeb3 = async () => {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        //const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const web3Instance = new Web3(window.ethereum);
-        setAccount(accounts[0]);
+        setAccount(accountFromWagmi.address);
         await loadContracts(web3Instance);
         window.ethereum.on('accountsChanged', handleAccountsChanged);
         subscribeToEvents();
@@ -57,6 +59,8 @@ export default function App() {
         setMarketplace(maketplace);
         const nft = await getContract(web3Instance, NFT.abi, NFTAddress.address);
         setNFT(nft);
+        const profileItem = await getProfileItem(marketplace, nft, account);
+        setProfileItem(profileItem);
     }
 
     const getContract = async (web3Instance, abi, address) => {
@@ -67,7 +71,7 @@ export default function App() {
         console.log(`New Bought Event - itemId: ${itemId}, nft: ${nft}, tokenId: ${tokenId}, price: ${itemPrice}, seller: ${seller}, buyer: ${buyer}`);
         setRefreshItems(true);
         if (profileItem.name === defaultProfileItem.name)
-            setProfileItem(initProfilePicture(account));
+            initProfilePicture(account);
     };
 
     const subscribeToEvents = () => {
@@ -76,25 +80,48 @@ export default function App() {
             Marketplace.abi,
             urlRpc
         );
+        const filter = subscriber.getContract().filters["Bought"](null, null, null, null, null, account);
 
-        subscriber.subscribeToBoughtEvents("Bought", onBoughtCallback);
-        setEventSubscriber(subscriber); // Stocker la référence de l'abonné
+
+        subscriber.subscribeToEventsWithFilter(filter, onBoughtCallback);
+        subscriber.subscribeToEvents("Bought", setRefreshItems(true));
+        setEventSubscriber(subscriber);
     };
 
     const unsubscribeFromEvents = () => {
         if (eventSubscriber) {
+            console.log("here !!!");
+            const filter = eventSubscriber.getContract().filters["Bought"](null, null, null, null, null, account);
             window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-            eventSubscriber.unsubscribeFromBoughtEvents("Bought", onBoughtCallback);
+            eventSubscriber.unsubscribeFromEvents("Bought", setRefreshItems(true));
+            eventSubscriber.unsubscribeToEventsWithFilter(filter, onBoughtCallback);
         }
     };
 
-    useEffect(() => {
+    /**useEffect(() => {
         return unsubscribeFromEvents;
-    }, [account]);
+    }, [account]);**/
+
+
+    useEffect(() => {
+        async function loadConfigWithWagmi() {
+            await initWeb3();
+        }
+
+        if (accountFromWagmi.address && !nft) {
+            loadConfigWithWagmi();
+        }
+
+        if (accountFromWagmi) {
+            handleAccountsChanged(accountFromWagmi.addresses ?? []);
+        }
+    }, [accountFromWagmi.address]);
 
     async function initProfilePicture(account) {
-        const profileItem = await getProfileItem(marketplace, nft, account);
-        setProfileItem(profileItem);
+        if (marketplace && nft) {
+            const profileItem = await getProfileItem(marketplace, nft, account);
+            setProfileItem(profileItem);
+        }
     }
 
     useEffect(() => {

@@ -6,12 +6,24 @@ class EventSubscriber {
         this.contract = new ethers.Contract(contractAddress, abi, this.provider);
     }
 
-    subscribeToBoughtEvents(eventName, onEvent) {
+    getContract() {
+        return this.contract;
+    }
+
+    subscribeToEvents(eventName, onEvent) {
         this.contract.on(eventName, onEvent);
     }
 
-    unsubscribeFromBoughtEvents(eventName, onEvent) {
+    subscribeToEventsWithFilter(filter, onEvent) {
+        this.contract.on(filter, onEvent);
+    }
+
+    unsubscribeFromEvents(eventName, onEvent) {
         this.contract.off(eventName, onEvent);
+    }
+
+    unsubscribeToEventsWithFilter(filter, onEvent) {
+        this.contract.off(filter, onEvent);
     }
 }
 

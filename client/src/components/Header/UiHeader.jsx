@@ -3,10 +3,9 @@ import {useEffect} from "react";
 import {EaseOutWhenVisibleLeft} from "../Motion/EaseOutWhenVisibleLeft";
 import { useRecoilState } from 'recoil';
 import {itemSelectedState} from "../../Atoms/ItemSelectedState.jsx";
-import {UiButton} from "../Button/UiButton";
 
 // https://tailwindcomponents.com/component/free-tailwind-css-header-component
-export const UiHeader = ({items = ["Game", "Collection"], button, componentEnd}) => {
+export const UiHeader = ({items = ["Home", "Collection"], button, componentEnd}) => {
     const { title, onClick, color, size } = button || {};
     const [selected, setSelected] = useRecoilState(itemSelectedState);
 

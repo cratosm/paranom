@@ -16,7 +16,7 @@ export const HomePage = ({web3Infos}) => {
         <div className="bg-neutral-300 h-full flex items-start justify-center">
             <div className="h-full flex flex-col w-11/12 md:w-11/12 2xl:w-2/3">
                 <UiHeader componentEnd={<UiProfile image={profileItem.image} colors={profileItem.colors} name={profileItem.name}/>} />
-                {itemSelected === "Game" ? <GamePage web3Infos={web3Infos}/> : <CollectionPage web3Infos={web3Infos} />}
+                {itemSelected === "Home" ? <GamePage web3Infos={web3Infos}/> : <CollectionPage web3Infos={web3Infos} />}
                 <BallsEffect />
                 <UiFooter title="A NFT Card Game" />
             </div>
